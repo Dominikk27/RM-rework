@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root{
+    --bg-color: #F8F5EC;
+    --line-color: #E3DFD5;
+    --decent-color: #F2EEE4;
+
+    --accent-primary-color: #B64E10;
+    --accent-secondary-color: #C45C3E;
+    --secondary-color: #3D3229;
+
+    --font-header: 'Fraunces', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --h1-size: 3.75rem;
+    --h1-line: 3.938rem;
+
+    --h2-size: 3.125rem;
+    --h2-line: 3.5rem;
+
+    --h3-size: 2.5rem;
+    --h3-line: 3rem;
+
+    --h4-size: 1.875rem;
+    --h4-line: 2rem;
+
+    --body-size: 1rem;
+    --body-line: 1.5rem;
+
+    --small-size: 0.75rem;
+    --small-line: 0.813rem;
+
+    --rounded-small: 0.3125rem;
+    --rounded-medium: 0.625rem;
+
+    --rounded-large: 6.25rem;
+
+
+    --extra-small-gap: 0.25rem;
+    --small-gap: 0.625rem;
+    --medium-gap: 0.94rem;
+    --large-gap: 3.125rem;
+
+    
+}
+
+.product:hover{
+    background-color: var(--line-color);
+    transition: linear 0.5s;
+
+}
+
+.heroButton{
+    width: 10.5rem;   /*8.3125rem*/
+    height: 3.5rem; /*2.5625rem*/
+    border-radius: var(--rounded-small);
+    font-family: var(--font-body);
+    font-size: var(--body-size);
+    cursor: pointer;
+}
+
+.qaButton{
+    width: 10.6rem;
+    height: 2.5625rem;
+    border-radius: var(--rounded-small);
+    font-family: var(--font-body);
+    cursor: pointer;
+
+}
+
+.partnerLogo {
+    height: 60px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(60%);
+    transition: filter 0.2s ease;
+}
+
+.partnerLogo:hover {
+    filter: grayscale(0%) opacity(100%);
+}
+
+/* TEXT */
+.h1Text {
+    font-family: var(--font-header);
+    font-size: var(--h1-size);
+    line-height: var(--h1-line);
+}
+
+.h2Text {
+    font-family: var(--font-header);
+    font-size: var(--h2-size);
+    line-height: var(--h2-line);
+}
+
+.h3Text {
+    font-family: var(--font-header);
+    font-size: var(--h3-size);
+    line-height: var(--h3-line);
+}
+
+.h4Text {
+    font-family: var(--font-header);
+    font-size: var(--h4-size);
+    line-height: var(--h4-line);
+    color: white;
+}
+
+.bodyText {
+    font-family: var(--font-body);
+    font-size: var(--body-size);
+    line-height: var(--body-line);
+}
+
+.pText {
+    font-family: var(--font-body);
+    font-size: var(--small-size);
+    line-height: var(--small-line);
+}
+
+/* COLORS */
+.bgColor {
+    background-color: var(--bg-color);
+}
+
+.textColor {
+    color: var(--text-color);
+}
+
+.accentColor {
+    color: var(--accent-color);
+}
