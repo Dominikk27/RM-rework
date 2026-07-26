@@ -45,6 +45,14 @@
     
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+[id] {
+    scroll-margin-top: 8rem;
+}
+
 .product:hover{
     background-color: var(--line-color);
     transition: linear 0.5s;
@@ -105,7 +113,6 @@
     font-family: var(--font-header);
     font-size: var(--h4-size);
     line-height: var(--h4-line);
-    color: white;
 }
 
 .bodyText {

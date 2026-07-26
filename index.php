@@ -5,6 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- SCRIPTS -->
+        <script src="./js/mailSender.js" defer></script>
+        <script src="./js/counter.js" defer></script>
+        <script src="./js/navigation.js" defer></script>
+        
+        <!-- STYLES SCRIPTS -->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         <script src="https://kit.fontawesome.com/aeaa451863.js" crossorigin="anonymous"></script>
 
@@ -16,8 +21,85 @@
     </head>
     <body>
         <!-- NAVIGATION -->
+        <header id="navigationHeader" class="fixed top-0 left-0 w-full bg-[var(--decent-color)] z-50 transition-all duration-300">
+            <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-12 max-w-[80rem] mx-auto">
+                <div class="col-span-2 md:col-span-2 lg:col-span-2 z-50">
+                    <a href="#" class="inline-block">
+                        <img src="./assets/logo/logo.png" class="w-[6.5rem] h-[6rem]" alt="">
+                    </a>
+                </div>
+                <nav class="hidden lg:flex lg:col-span-6 flex  items-center justify-center gap-10">
+                    <a href="#services" class="
+                                    bodyText relative hover:text-[var(--accent-primary-color)] transition-colors
+                                    after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:w-full 
+                                    after:bg-[var(--accent-primary-color)] after:origin-left after:scale-x-0 
+                                    hover:after:scale-x-100 after:transition-transform">
+                                    Služby
+                    </a>
+                    <a href="#recommended" class="
+                                    bodyText relative hover:text-[var(--accent-primary-color)] transition-colors
+                                    after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:w-full 
+                                    after:bg-[var(--accent-primary-color)] after:origin-left after:scale-x-0 
+                                    hover:after:scale-x-100 after:transition-transform">
+                                    Produkty
+                    </a>
+                    <a href="#contact" class="
+                                    bodyText relative hover:text-[var(--accent-primary-color)] transition-colors
+                                    after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:w-full 
+                                    after:bg-[var(--accent-primary-color)] after:origin-left after:scale-x-0 
+                                    hover:after:scale-x-100 after:transition-transform">
+                                    Kontakt
+                    </a>
+                </nav>
+
+                <!-- BUTTONS -->
+                <div class="hidden lg:flex lg:col-span-4 flex items-center justify-end gap-4">
+                    <a href="https://profitrend.elnot.com/" target="_blank"
+                    class="bodyText bg-[var(--secondary-color)] text-white rounded-[var(--rounded-small)] px-8 py-2 hover:opacity-90 transition-opacity">
+                        Servis
+                    </a>
+                    <a href="#katalog"
+                    class="bodyText bg-[var(--accent-primary-color)] text-white rounded-[var(--rounded-small)] px-8 py-2 hover:opacity-90 transition-opacity">
+                        Katalóg
+                    </a>
+                </div>
+
+                <!-- MOBILE MENU BUTTON -->
+                <button class="lg:hidden col-span-2 md:col-span-6 flex items-center justify-end p-2" aria-label="Otvoriť menu" id="menuToggle">
+                    <div class="px-2 flex flex-col gap-1.5 z-50">
+                        <span id="bar1" class="w-6 h-1 bg-[var(--accent-primary-color)] transition-all duration-300 origin-center"></span>
+                        <span id="bar2" class="w-6 h-1 bg-[var(--accent-primary-color)] transition-all duration-300 "></span>
+                        <span id="bar3" class="w-6 h-1 bg-[var(--accent-primary-color)] transition-all duration-300 origin-center"></span>
+                    </div>
+                </button>
+            </div>
+            
+            <!-- MOBILE MENU OVERLAY -->
+            <div id="mobileMenu" 
+                class="lg:hidden fixed top-0 left-0 w-full h-screen bg-[var(--decent-color)] z-40 
+                        flex flex-col items-center justify-center gap-8 
+                        opacity-0 scale-95 pointer-events-none transition-all duration-300">
+                
+                <nav class="flex flex-col items-center gap-8">
+                    <a href="#services" class="h4Text text-black hover:text-[var(--accent-primary-color)] transition-colors">Služby</a>
+                    <a href="#recommended" class="h4Text text-black hover:text-[var(--accent-primary-color)] transition-colors">Produkty</a>
+                    <a href="#contact" class="h4Text text-black hover:text-[var(--accent-primary-color)] transition-colors">Kontakt</a>
+                </nav>
+
+                <div class="flex flex-col gap-4 mt-4 w-[16rem]">
+                    <a href="https://profitrend.elnot.com/" target="_blank"
+                    class="bodyText text-center bg-[var(--secondary-color)] text-white rounded-[var(--rounded-small)] px-8 py-3 hover:opacity-90 transition-opacity">
+                        Servis
+                    </a>
+                    <a href="#katalog"
+                    class="bodyText text-center bg-[var(--accent-primary-color)] text-white rounded-[var(--rounded-small)] px-8 py-3 hover:opacity-90 transition-opacity">
+                        Katalóg
+                    </a>
+                </div>
+            </div>
+        </header>
         <!-- HERO -->
-        <section class="bg-[var(--bg-color)] px-4 md:px-16  lg:px-32">
+        <section class="bg-[var(--bg-color)] px-4 md:px-16  lg:px-32 scroll-mt-28">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 lg:max-w-[80rem] gap-8 min-h-screen mx-auto items-start lg:items-center py-20 lg:pt-0">
                 <div class="col-span-4 lg:col-span-6 flex flex-col justify-center gap-[var(--medium-gap)]">
                     <h1 class="h1Text">Všetko pre starostlivosť o vašu záhradu</h1>
@@ -27,8 +109,16 @@
                         ktoré vám pomôžu zvládnuť každú prácu.
                     </p>
                     <div class="flex gap-[var(--small-gap)]">
-                        <button class="heroButton bg-[var(--secondary-color)] text-white">Prezerať katalóg</button>
-                        <button class="heroButton border-2 border-[var(--line-color)]  text-black">Prezerať katalóg</button>
+                        <button class="heroButton bg-[var(--secondary-color)] text-white transition-opacity duration-300 hover:opacity-70">Prezerať katalóg</button>
+                        <button class="heroButton relative overflow-hidden border-2 border-[var(--line-color)] text-black
+                                       before:absolute before:top-0 before:left-0 before:h-full before:w-0
+                                       before:bg-[var(--secondary-color)] before:transition-all before:duration-300
+                                       hover:before:w-full hover:text-white">
+                            <span class="relative z-10">
+                                Kontaktujte nás
+                            </span>
+
+                        </button>
                     </div>
                     <!-- NUMBERS  -->
                     <div class="mt-10
@@ -38,15 +128,15 @@
                     </div>
                     <div class="flex flex-row md:gap-[var(--extra-large-gap)] lg:justify-start justify-center">
                         <div class="flex flex-col">
-                            <h3 class="h2Text text-center">10+</h3>
+                            <h3 class="h2Text text-center counter" data-target="10" data-suffix="+">10+</h3>
                             <p class="bodyText text-center">ROKOV PRAXE</p>
                         </div>
                         <div class="flex flex-col">
-                            <h3 class="h2Text text-center">6</h3>
+                            <h3 class="h2Text text-center counter " data-target="6">6</h3>
                             <p class="bodyText text-center">OVERENÝCH ZNAČIEK</p>
                         </div>
                         <div class="flex flex-col">
-                            <h3 class="h2Text text-center">3500+</h3>
+                            <h3 class="h2Text text-center counter" data-target="3500" data-suffix="+">3500+</h3>
                             <p class="bodyText text-center">PREDANÝCH STROJOV</p>
                         </div>
                     </div>
@@ -80,7 +170,7 @@
         </section>
 
         <!-- RECOMMENDED PRODUCTS -->
-        <section class="bg-[var(--decent-color)] px-4 md:px-16  lg:px-32 relative">
+        <section id="recommended" class="bg-[var(--decent-color)] px-4 md:px-16  lg:px-32 relative scroll-mt-28">
             <div class="max-w-[80rem] mx-auto grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 py-10 blur-sm">
                 <!-- Header -->
                 <div class="col-span-4 md:col-span-8 lg:col-span-12">
@@ -97,7 +187,7 @@
                     </div>
                 </div>
                 <!-- Products -->
-                <div class="col-span-4 md:col-span-8 lg:col-span-12">
+                <div class="col-span-4 md:col-span-8 lg:col-span-12 scroll-mt-28">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         <div class="product p-4 rounded-[var(--rounded-medium)]">
                             <img src="./assets/product.png"
@@ -150,10 +240,10 @@
         </section>
         
         <!-- SERVICES -->
-        <section class="bg-[var(--secondary-color)] px-4 md:px-16  lg:px-32">
+        <section id="services" class="bg-[var(--secondary-color)] px-4 md:px-16  lg:px-32 scroll-mt-28">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 max-w-[80rem] mx-auto py-20 ">
                 <div class="col-span-4 flex flex-col gap-[var(--small-gap)]">
-                    <h2 class="h4Text text-left">Servis a brúsenie</h2>
+                    <h2 class="h4Text text-white text-left">Servis a brúsenie</h2>
                     <p class="pText text-left text-white max-w-[20.6rem]">
                         Stroje zakúpene u nás v predajni vybavíme do 7 dní.
                         Postaráme sa o brúsenie nožov a reťazí, pravidelný servis aj kompletnú údržbu vašej techniky.
@@ -161,14 +251,14 @@
                 </div>
 
                 <div class="col-span-4 flex flex-col gap-[var(--small-gap)]">
-                    <h2 class="h4Text text-left">Odborné poradenstvo</h2>
+                    <h2 class="h4Text text-white text-left">Odborné poradenstvo</h2>
                     <p class="pText text-left text-white max-w-[20.6rem]">
                         Poradíme s výberom techniky, príslušenstva aj náhradných dielov podľa vašej práce a požiadaviek.
                     </p>
                 </div>
 
                 <div class="col-span-4 flex flex-col gap-[var(--small-gap)]">
-                    <h2 class="h4Text text-left">Autorizovaný predajca</h2>
+                    <h2 class="h4Text text-white text-left">Autorizovaný predajca</h2>
                     <p class="pText text-left text-white max-w-[20.6rem]">
                         V našej ponuke nájdete kvalitnú techniku overených značiek. 
                         Zabezpečujeme aj autorizovaný servis a odbornú starostlivosť o vaše stroje. 
@@ -178,10 +268,10 @@
         </section>
 
         <!-- PARTNERS -->
-        <section class="bg-[var(--bg-color)] lg:px-32">
+        <section class="bg-[var(--bg-color)] lg:px-32 scroll-mt-28">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 max-w-[80rem] mx-auto py-20 ">
                 <div class="col-span-4 md:col-span-8 lg:col-span-12">
-                    <h2 class="h2Text">Spolupracujeme s overenými značkami</h2>
+                    <h2 class="h2Text">Naši overený partneri</h2>
                 </div>
                 <div class="col-span-4 md:col-span-8 lg:col-span-12">
                     <div class="col-span-4 md:col-span-8 lg:col-span-12">
@@ -216,7 +306,7 @@
         </section>
 
         <!-- QUESTIONS -->
-        <section class="bg-[var(--decent-color)] px-4 md:px-16  lg:px-32">
+        <section class="bg-[var(--decent-color)] px-4 md:px-16  lg:px-32 scroll-mt-28">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 max-w-[80rem] mx-auto py-20  items-center">
                 <div class="col-span-4 md:col-span-8 lg:col-span-12 flex flex-col items-center justify-center text-center gap-[var(--medium-gap)]">
                     <p class="pText text-[var(--accent-primary-color)] font-[800]">NAVŠTÍVTE NAŠU PREDAJŇU</p>
@@ -228,9 +318,9 @@
         </section>
 
         <!-- CONTACT -->
-        <section class="bg-[var(--bg-color)] px-4 md:px-16  lg:px-32">
+        <section id="contact" class="bg-[var(--bg-color)] px-4 md:px-16  lg:px-32 scroll-mt-28">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 max-w-[80rem] mx-auto py-10 ">
-                <div class="col-span-5">
+                <div class="col-span-4 lg:col-span-5">
                     <div class="flex flex-col gap-[var(--extra-small-gap)]">
                         <p class="bodyText text-[var(--accent-primary-color)] font-bold">KONTAKT</p>
                         <h2 class="h2Text">Navštívte nás</h2>
@@ -269,14 +359,78 @@
                     </div>
                 </div>
                 <!-- FORM -->
-                <div class="col-start-6 col-span-6">
+                <div class="col-span-4 lg:col-start-7 lg:col-span-6">
+                    <div class="bg-white rounded-[var(--rounded-medium)] border-1 border-[var(--secondary-color)] shadow-lg px-[1.6rem] py-[2rem]">
+                        <h2 class="h2Text">Napíšte nám</h2>
+                        <form id="contactForm" class="flex flex-col gap-[var(--large-gap)] mt-6">
+                            <div class="grid grid-cols-2 gap-[var(--medium-gap)]">
+                                <div class="col-span-2 md:col-span-1 flex flex-col gap-[var(--extra-small-gap)]">
+                                    <label for="name" class="bodyText">MENO</label>
+                                    <input 
+                                        type="text" 
+                                        id="name" 
+                                        name="name" 
+                                        class="pText w-full bg-[var(--bg-color)] rounded-[var(--rounded-small)] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary-color)]"
+                                    >
+                                </div>
 
+                                <div class="col-span-2 md:col-span-1 flex flex-col gap-[var(--extra-small-gap)]">
+                                    <label for="email" class="bodyText">E-MAIL</label>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        class="pText w-full bg-[var(--bg-color)] rounded-[var(--rounded-small)] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary-color)]"
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-[var(--extra-small-gap)]">
+                                <label for="subject" class="bodyText">PREDMET</label>
+                                <select 
+                                    id="subject" 
+                                    name="subject" 
+                                    class="pText w-full bg-[var(--bg-color)] rounded-[var(--rounded-small)] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary-color)] appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23555%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22></polyline></svg>')] bg-no-repeat bg-[right_1rem_center] bg-[length:1rem]"
+                                >
+                                    <option value="" disabled selected>Vyberte možnosť</option>
+                                    <option value="servis">Servis a brúsenie</option>
+                                    <option value="poradenstvo">Odborné poradenstvo</option>
+                                    <option value="predaj">Predaj techniky</option>
+                                    <option value="reklamacia">Reklamácia</option>
+                                    <option value="ine">Iné</option>
+                                </select>
+                            </div>
+
+                            <div class="flex flex-col gap-[var(--extra-small-gap)]">
+                                <label for="message" class="bodyText">SPRÁVA</label>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    rows="10"
+                                    class="pText w-full bg-[var(--bg-color)] rounded-[var(--rounded-small)] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary-color)] resize-y"
+                                ></textarea>
+                            </div>
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                            <div>
+                                <button 
+                                    type="submit" 
+                                    class="pText bg-[var(--secondary-color)] text-white rounded-[var(--rounded-small)] px-6 py-3 hover:opacity-90 transition-opacity"
+                                >
+                                    Odoslať správu
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="formStatus" class="my-5 p-2 w-full h-[40px] bg-[var(--decent-color)] rounded-[var(--rounded-medium)] border-1 border-[var(--secondary-color)] hidden">
+                        <p class="textContent"></p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <section class="bg-[var(--secondary-color)] px-4 md:px-16  lg:px-32">
+        <section id="footer" class="bg-[var(--secondary-color)] px-4 md:px-16  lg:px-32">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 max-w-[80rem] mx-auto py-10 ">
                 <div class="col-span-4">
                     <div class="flex flex-col gap-[var(--small-gap)]">
@@ -286,17 +440,17 @@
                             Vyberáme značky, ktorým sami dôverujeme, a poradíme vám tak, aby vám technika vydržala čo najdlhšie.
                         </p>
                         <div class="flex gap-[var(--small-gap)]">
-                            <a href="#" class="w-auto h-auto">
+                            <a href="https://www.instagram.com/r.m.technik/" target="_blank" class="w-auto h-auto transition-opacity duration-300 hover:opacity-70">
                                 <div class="flex rounded-full w-[40px] h-[40px] bg-[var(--accent-primary-color)] text-center items-center justify-center">
                                     <i class="fa-brands fa-facebook-f text-white"></i>
                                 </div>
                             </a>
-                            <a href="#" class="w-auto h-auto">
+                            <a href="https://www.instagram.com/r.m.technik/" target="_blank" class="w-auto h-auto transition-opacity duration-300 hover:opacity-70">
                                 <div class="flex rounded-full w-[40px] h-[40px] bg-[var(--accent-primary-color)] text-center items-center justify-center">
                                     <i class="fa-brands fa-instagram text-white"></i>
                                 </div>
                             </a>
-                            <a href="#" class="w-auto h-auto">
+                            <a href="#" class="w-auto h-auto transition-opacity duration-300 hover:opacity-70">
                                 <div class="flex rounded-full w-[40px] h-[40px] bg-[var(--accent-primary-color)] text-center items-center justify-center">
                                     <i class="fa-brands fa-youtube text-white"></i>
                                 </div>
@@ -327,7 +481,7 @@
                             bg-[var(--line-color)]">
                 </div>
                 <div class="flex justify-between col-start-1">
-                    <p class="pText text-white py-3">🤎bucak.dev</p>
+                    <a href="https://bucak.dev" target="_blank" class="pText text-white py-3">bucak.dev</a>
                     <p class="pText text-white py-3">RMTechnik all rights reserved 2026</p>
                 </div>
         </section> 
