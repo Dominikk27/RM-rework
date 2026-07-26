@@ -12,17 +12,17 @@ function initNavigationScrollEffect(){
     window.addEventListener('scroll', () => {
         const isScrolled = window.scrollY > scrollTreshold;
         if(isScrolled){
-            header.classList.add(scrollNavbarClasses);
+            header.classList.add(...scrollNavbarClasses);
         }
         else{
-            header.classList.remove(scrollNavbarClasses);
+            header.classList.remove(...scrollNavbarClasses);
         }
     })
 }
 
 
 function initMobileMenu(){
-    const toggleBTN = document.getElementById('hamburgerBTN');
+    const toggleBTN = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
 
     const bar1 = document.getElementById('bar1');
@@ -57,7 +57,7 @@ function initMobileMenu(){
     }
 
 
-    menuToggle.addEventListener('click', () =>{
+    toggleBTN.addEventListener('click', () =>{
         isOpen ? closeMenu() : openMenu();
     });
 

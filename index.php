@@ -15,6 +15,7 @@
 
         <!-- STYLES -->
         <link rel="stylesheet" href="./css/global.css">
+        <link rel="icon" type="image/x-icon" href="./assets/logo/logo.png">
         
         <title>R.M. Technik | Predaj záhradnej a lesnej techniky</title>
 
