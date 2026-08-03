@@ -1,15 +1,19 @@
-from product_parser import SupaXMLParser
+from product_parser import SupaXMLParser, StihlXMLParser
 from save import SaveSystem
 
 
 def main():
-    parser = SupaXMLParser()
-    products = parser.parse_file("./data/productsSupa.xml")
+    parserSupa = SupaXMLParser()
+    products = parserSupa.parse_file("./data/productsSupa.xml")
     print(f"{len(products)}")
 
     SaveSystem.save(products, "supa.json")
 
+    parserStihl = StihlXMLParser()
+    products = parserStihl.parse_file("./data/productsStihl.xml")
+    print(f"{len(products)}")
 
+    SaveSystem.save(products, "stihl.json")
 
 
 
