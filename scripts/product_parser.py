@@ -63,7 +63,7 @@ class XmlReader:
 
         if container_tag:
             containerImgs = el.find(container_tag, self.ns) if self.ns else el.find(container_tag)
-            
+
             if containerImgs is not None:
                 for child in containerImgs:
                     if child.text and child.text.strip():
@@ -109,7 +109,7 @@ class SupaXMLParser(ProductParser):
             "cena_b2c": reader._float(el, "CENA_B2C"),
             "cena_bez_dph": reader._float(el, "CENA_BEZ_DPH"),
             "technical_description": self.json_format(el, "TECHNICKE_UDAJE"),
-            "in_stock": reader._int(el, "SKLADOM"),
+            #"in_stock": reader._int(el, "SKLADOM"),
             "description": reader.html_text(el, "POPIS"),
             "images": reader.images(el, "LINK_NA_OBRAZOK", "MEDIA"),
             "zaradenie_v_strome": reader._int(el, "ZARADENIE_V_STROME")
@@ -183,7 +183,6 @@ class StihlXMLParser(ProductParser):
             result[label] = value
 
         return result
-
 
     def _parse_product(self, el) -> dict:
         reader = self.reader
