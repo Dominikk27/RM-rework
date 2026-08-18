@@ -239,6 +239,30 @@
                 </p>
             </div>
         </section>
+
+        <!-- VIRTUAL -->
+        <section id="virtual" class="bg-[var(--bg-color)] items-center  px-4 md:px-16  lg:px-32 relative scroll-mt-28">
+            <div class="max-w-[80rem] mx-auto grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 py-10">
+                <!-- Header -->
+                <div class="col-span-4 md:col-span-8 lg:col-span-12">
+                    <p class="bodyText text-[var(--accent-primary-color)] font-bold">
+                        NAŠA PREDAJŇA
+                    </p>
+                    <div class="flex justify-between items-end">
+                        <h2 class="h2Text">
+                            Virtuálna predajňa
+                        </h2>
+                        <a href="https://www.google.com/maps/place/Richard+Majt%C3%A1n+-+R.M.Technik+(Z%C3%A1hradn%C3%A1+Technika)/@48.7517896,17.5620493,3a,75y,66.03h,84.23t/data=!3m8!1e1!3m6!1sCIABIhBp40CGgXnytRs1Fmy6uml8!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFP8RcNxsP1dkpAtZ4MxnjurOJxCZV7F4fIfV2KEjCSWuqP2CB82FD7VP_GOFzxgbKvQrXUiLjWRtw2vvPJKYmjgygPtcEQD8ikI4iAquduQbP_w5zgHWzpG8PGY33TroOlmhfMdaIPxQwWlQkJj%3Dw900-h600-k-no-pi5.76879944850522-ya197.67274628835577-ro0-fo100!7i10000!8i5000!4m9!3m8!1s0x47134f79d74497bb:0xd2f9b60dd6713190!8m2!3d48.7518383!4d17.5620195!10e5!14m1!1BCgIgARICCAI!16s%2Fg%2F11tn9llmmq?entry=ttu&g_ep=EgoyMDI2MDgxMi4wIKXMDSoASAFQAw%3D%3D" class="pText text-[var(--accent-primary-color)]">
+                            Celá prehliadka →
+                        </a>
+                    </div>
+                </div>
+                <div class="col-span-4 md:col-span-8 lg:col-span-12 scroll-mt-28 flex justify-center items-center">
+                    <iframe src="https://www.google.com/maps/embed?pb=!4v1786928050561!6m8!1m7!1sCAoSHENJQUJJaER3b2wtbHA1RHcwVkVneUhQbUw3bWU.!2m2!1d48.75180628700789!2d17.56208153074515!3f335.72655274689424!4f-11.427474464538122!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </div>
+
+        </section>
         
         <!-- SERVICES -->
         <section id="services" class="bg-[var(--secondary-color)] px-4 md:px-16  lg:px-32 scroll-mt-28">

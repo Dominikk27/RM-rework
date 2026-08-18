@@ -24,6 +24,16 @@ class AttributeExtractor:
     RE_ROZMER = re.compile(r"(?P<priemer>\d+[.,]\d+)\s*[-x×X]\s*(?P<dlzka>\d+)\s*M\b\.?", re.IGNORECASE)
     RE_VELKOST = re.compile(r"\b[Cč]\.?\s?(\d{1,2})\b", re.IGNORECASE)
 
+    RE_KOTUC = re.compile(
+        r"\s+(?P<oznacenie>[A-Z]-[A-Z0-9]+),\s*(?P<rozmer>\d+\s*mm\s*/\s*\d+[\"”])\s*$",
+        re.IGNORECASE
+    )
+
+    RE_ROZBRUSOVACI = re.compile(
+        r"\s*-\s*(?P<typ>[^-]+?)\s*-\s*ø\s*(?P<priemer>\d+)\s*x\s*(?P<hrubka>\d+[.,]\d+)\s*mm\s*$",
+        re.IGNORECASE
+    )
+
     def __init__(self):
         stems = sorted(self.COLOR_STEMS.keys(), key=len, reverse=True)
         self.re_color = re.compile(r"\b(" + "|".join(stems) + r")\w*\b", re.IGNORECASE)
@@ -51,6 +61,20 @@ class AttributeExtractor:
             working, velkost = self._extract_one(working, self.RE_VELKOST)
             if velkost:
                 attrs["velkost"] = velkost
+
+        m = self.RE_KOTUC.search(working)
+        if m:
+            attrs["oznacenie"] = m.group("oznacenie").upper()
+            attrs["rozmer"] = m.group("rozmer")
+            working = self.RE_KOTUC.sub("", working)
+
+        m = self.RE_ROZBRUSOVACI.search(working)
+        if m:
+            attrs["typ"] = m.group("typ").strip()
+            attrs["priemer_kotuca"] = m.group("priemer") + " mm"
+            attrs["hrubka"] = m.group("hrubka").replace(",", ".") + " mm"
+            working = self.RE_ROZBRUSOVACI.sub("", working)
+
 
         base_name = self._clean(working)
         return base_name, attrs
@@ -101,6 +125,7 @@ class GroupItems:
             "master_name": self.master_name,
             "base_name": self.base_name,
             "group_attrs": self.group_attrs,
+            "items": self.items
         }
 
 
