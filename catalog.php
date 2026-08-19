@@ -34,7 +34,7 @@
         <title>R.M. Technik | Predaj záhradnej a lesnej techniky</title>
 
     </head>
-    <body class="bg-[var(--background-color)] overflow-y-auto flex flex-col">
+    <body class="bg-[var(--catalog-background)] overflow-y-auto flex flex-col">
         <!-- NAVIGATION -->
         <header id="navigationHeader" class="fixed top-0 left-0 w-full bg-[var(--decent-color)] z-50 transition-all duration-300">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-12 max-w-[80rem] mx-auto">
@@ -115,69 +115,71 @@
         </header>
 
         <!-- MAIN -->
-        <main class="flex flex-col flex-1 min-h-0 pt-[6rem] mt-5 max-w-[80rem] mx-auto">
-            <div id="filterBlock" class="shrink-0 border-b border-[var(--secondary-color)] transition-all duration-300">
-                <button id="filterToggle"
-                    class="w-full flex items-center justify-between py-4"
-                    aria-expanded="false" aria-controls="filterPanel">
-                    <span class="bodyText font-bold">Filter</span>
-                    <div class="flex justify-center items-center px-2 py-2 rounded-full bg-[var(--accent-primary-color)]">
-                        <i id="filterIcon" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
-                    </div>
-                </button>
+        <main class="relative flex justify-center items-center max-w-[90rem] mx-auto bg-white border-1 border-[var(--catalog-border-color)]">
+            <div class="flex flex-col flex-1 min-h-0 pt-[6rem] mt-5 max-w-[80rem] px-4 sm:px-8 lg:px-12">
+                <div id="filterBlock" class="shrink-0 border-b border-[var(--catalog-border-color)] transition-all duration-300">
+                    <button id="filterToggle"
+                        class="w-full flex items-center justify-between py-4"
+                        aria-expanded="false" aria-controls="filterPanel">
+                        <span class="bodyText font-bold">Filter</span>
+                        <div class="flex justify-center items-center px-2 py-2 rounded-full bg-[var(--accent-primary-color)]">
+                            <i id="filterIcon" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </div>
+                    </button>
 
-                <div id="filterPanel" class="overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out">
-                    <div class="px-4 md:px-16 lg:px-32 pb-6 flex flex-col gap-4">
+                    <div id="filterPanel" class="overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out">
+                        <div class="px-4 md:px-16 lg:px-32 pb-6 flex flex-col gap-4">
 
-                        <div class="filterGroup border border-[var(--line-color)] rounded-[var(--rounded-small)]">
-                            <button class="filterGroupToggle w-full flex items-center justify-between px-4 py-3"
-                                data-target="brandGroup" aria-expanded="true">
-                                <span class="pText font-bold">Značka</span>
-                                <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
-                            </button>
+                            <div class="filterGroup border border-[var(--catalor-border-color)] rounded-[var(--rounded-small)]">
+                                <button class="filterGroupToggle w-full flex items-center justify-between px-4 py-3"
+                                    data-target="brandGroup" aria-expanded="true">
+                                    <span class="pText font-bold">Značka</span>
+                                    <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                                </button>
 
-                            <div id="brandGroup" class="filterGroupBody overflow-hidden transition-[max-height] duration-300 ease-in-out">
-                                <div class="px-4 pb-4">
-                                    <div id="brandFilterList"
-                                        class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-2">
-                                        <!-- LABELS -->
+                                <div id="brandGroup" class="filterGroupBody overflow-hidden transition-[max-height] duration-300 ease-in-out">
+                                    <div class="px-4 pb-4">
+                                        <div id="brandFilterList"
+                                            class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-2">
+                                            <!-- LABELS -->
+                                        </div>
+
+                                        <button id="loadMoreBrands"
+                                            class="pText text-[var(--accent-primary-color)] font-bold mt-3 hover:opacity-70 transition-opacity">
+                                            Zobraziť ďalšie značky
+                                        </button>
                                     </div>
-
-                                    <button id="loadMoreBrands"
-                                        class="pText text-[var(--accent-primary-color)] font-bold mt-3 hover:opacity-70 transition-opacity">
-                                        Zobraziť ďalšie značky
-                                    </button>
                                 </div>
                             </div>
+
+                            <!-- FILTERS  -->
+
                         </div>
-
-                        <!-- FILTERS  -->
-
                     </div>
                 </div>
-            </div>
 
-            <!-- PRODUCTS -->
-            <?php 
-            $result = getProducts($brandSlug, $categorySlug, $page, 24);
-            $products = $result['items'];
-            ?>
-            <section id="productsArea" class="flex-1 min-h-0 max-w-[100rem] px-4">
-                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-10">
-<!-- -->            <?php if (empty($products)) : ?>
-                        <p>Vyskytla sa chyba pri načítaní produktov!</p>
-                    <?php else: ?>
-                        <?php foreach ($products as $product): ?>
-                            <?php renderProductCard($product); ?>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-                    <!-- PAGES -->
-                     <?php renderPagination($result['page'], $result['totalPages'], array_filter([
-                        'brand' => $brandSlug,
-                        'category' => $categorySlug,
-                     ])); ?>
-            </section>
+                <!-- PRODUCTS -->
+                <?php 
+                $result = getProducts($brandSlug, $categorySlug, $page, 24);
+                $products = $result['items'];
+                ?>
+                <section id="productsArea" class="flex-1 min-h-0 max-w-[100rem] px-4">
+                    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-10">
+    <!-- -->            <?php if (empty($products)) : ?>
+                            <p>Vyskytla sa chyba pri načítaní produktov!</p>
+                        <?php else: ?>
+                            <?php foreach ($products as $product): ?>
+                                <?php renderProductCard($product); ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                        <!-- PAGES -->
+                        <?php renderPagination($result['page'], $result['totalPages'], array_filter([
+                            'brand' => $brandSlug,
+                            'category' => $categorySlug,
+                        ])); ?>
+                </section>
+            </div>
         </main>
 
         <!-- FOOTER -->

@@ -32,16 +32,16 @@ function getProducts(
         $params['category_slug'] = $categorySlug;
     }
 
-    $countRows = "SELECT COUNT(DISTINCT p.id) AS total $joins";
+    $countRows = "SELECT COUNT(DISTINCT p.name) AS total $joins";
     $countStmt = $pdo->prepare($countRows);
     $countStmt->execute($params);
     $total = (int)$countStmt->fetchColumn();
 
     $query = "
                 SELECT
+                    DISTINCT p.name,
                     p.id,
                     p.product_code,
-                    p.name,
                     p.price_b2c,
                     p.images,
                     b.name AS brand_name,

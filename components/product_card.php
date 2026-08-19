@@ -7,27 +7,35 @@ function renderProductCard(array $product): void {
         ? number_format((float)$product['price_b2c'], 2, ',', ' ') . ' €'
         : '';
     ?>
-    <article class="productCard flex flex-col bg-gray-100 rounded-b-xl overflow-hidden">
+    <article class="productCard h-full flex flex-col bg-gray-100 rounded-xl overflow-hidden border border-[var(--catalog-border-color)]">
 
         <!-- Obrázok -->
-        <div class="max-h-38 bg-white">
+        <div class="max-h-38 bg-white rounded-t-xl">
             <img
                 src="<?= htmlspecialchars($image) ?>"
                 alt="<?= $name ?>"
-                class="w-full h-full object-contain object-top"
+                class="w-full h-full object-contain object-top rounded-t-xl"
             >
         </div>
 
         <!-- Obsah -->
-        <div class="content flex items-center justify-between gap-2 px-3 pb-5 pt-2">
+        <div class="content flex flex-col flex-1 gap-5 px-3 pb-5 pt-2">
             <!-- Name -->
-            <h3 class="font-bold">
-                <?= $name ?>
-            </h3>
-            <!-- Price -->
-            <span class="font-medium whitespace-nowrap">
-                <?= $price ?>
-            </span>
+            <div class="flex-1">
+                <h3 class="font-bold">
+                    <?= $name ?>
+                </h3>
+            </div>
+            <div class="flex justify-between items-center px-2">
+                <!-- Price -->
+                <span class="font-bold text-[var(--accent-primary-color)] whitespace-nowrap">
+                    <?= $price ?>
+                </span>
+
+                <a href="#" class="w-10 h-10 flex justify-center items-center rounded-full border-1 border-[var(--accent-primary-color)]">
+                    <i class="fa-solid fa-cart-shopping text-[var(--accent-primary-color)]"></i>
+                </a>
+            </div>
 
         </div>
 
