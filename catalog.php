@@ -118,41 +118,265 @@
         <main class="relative flex justify-center items-center max-w-[90rem] mx-auto bg-white border-1 border-[var(--catalog-border-color)]">
             <div class="flex flex-col flex-1 min-h-0 pt-[6rem] mt-5 max-w-[80rem] px-4 sm:px-8 lg:px-12">
                 <div id="filterBlock" class="shrink-0 border-b border-[var(--catalog-border-color)] transition-all duration-300">
-                    <button id="filterToggle"
-                        class="w-full flex items-center justify-between py-4"
-                        aria-expanded="false" aria-controls="filterPanel">
-                        <span class="bodyText font-bold">Filter</span>
-                        <div class="flex justify-center items-center px-2 py-2 rounded-full bg-[var(--accent-primary-color)]">
-                            <i id="filterIcon" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                    <button
+                        id="filterToggle"
+                        type="button"
+                        class="w-full h-16 flex items-center justify-between focus:outline-0">
+
+                        <div>
+                            <span class="block text-[24px] leading-8 font-semibold text-start">
+                                Filter
+                            </span>
+
+                            <span class="hidden sm:block text-sm text-gray-500 mt-0.5">
+                                Nájdite presne to, čo potrebujete
+                            </span>
                         </div>
+
+                        <span
+                            class="w-9 h-9 rounded-full
+                                flex items-center justify-center
+                                bg-[var(--accent-primary-color)]
+                                text-black">
+
+                            <i
+                                id="filterIcon"
+                                class="fa-solid fa-chevron-down text-sm
+                                    transition-transform duration-300">
+                            </i>
+
+                        </span>
+
                     </button>
-
                     <div id="filterPanel" class="overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out">
-                        <div class="px-4 md:px-16 lg:px-32 pb-6 flex flex-col gap-4">
 
-                            <div class="filterGroup border border-[var(--catalor-border-color)] rounded-[var(--rounded-small)]">
-                                <button class="filterGroupToggle w-full flex items-center justify-between px-4 py-3"
-                                    data-target="brandGroup" aria-expanded="true">
-                                    <span class="pText font-bold">Značka</span>
-                                    <i class="fa-solid fa-chevron-down transition-transform duration-300"></i>
-                                </button>
+                        <div class="pb-6 pt-5">
 
-                                <div id="brandGroup" class="filterGroupBody overflow-hidden transition-[max-height] duration-300 ease-in-out">
-                                    <div class="px-4 pb-4">
-                                        <div id="brandFilterList"
-                                            class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-2">
-                                            <!-- LABELS -->
+                            <!-- FILTER CONTROLS -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pb-6">
+
+                                <!-- CATEGORY -->
+                                <div class="filterGroup relative">
+                                    <button
+                                        type="button"
+                                        class="filterGroupToggle w-full h-12 flex items-center justify-between
+                                            px-4 rounded-[var(--rounded-small)]
+                                            border border-[var(--catalog-border-color)]
+                                            bg-white hover:border-[var(--accent-primary-color)]
+                                            transition-colors duration-200"
+                                        data-target="categoryGroup"
+                                        aria-expanded="false">
+
+                                        <span class="flex items-center gap-3">
+                                            <i class="fa-solid fa-border-all text-sm text-gray-500"></i>
+                                            <span class="pText font-medium">Kategória</span>
+                                        </span>
+
+                                        <i class="fa-solid fa-chevron-down text-xs text-gray-500
+                                                transition-transform duration-300"></i>
+                                    </button>
+
+                                    <div id="categoryGroup"
+                                        class="filterGroupBody overflow-hidden max-h-0
+                                            transition-[max-height] duration-300 ease-in-out
+                                            absolute left-0 right-0 top-full z-30 mt-2
+                                            bg-white border-[var(--catalog-border-color)]
+                                            rounded-[var(--rounded-small)]
+                                            shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+
+                                        <div class="p-4">
+                                            <div id="categoryFilterList"
+                                                class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-2">
+                                                <!-- LABELS -->
+                                            </div>
                                         </div>
-
-                                        <button id="loadMoreBrands"
-                                            class="pText text-[var(--accent-primary-color)] font-bold mt-3 hover:opacity-70 transition-opacity">
-                                            Zobraziť ďalšie značky
-                                        </button>
                                     </div>
                                 </div>
+
+
+                                <!-- BRAND -->
+                                <div class="filterGroup relative">
+                                    <button
+                                        type="button"
+                                        class="filterGroupToggle w-full h-12 flex items-center justify-between
+                                            px-4 rounded-[var(--rounded-small)]
+                                            border border-[var(--catalog-border-color)]
+                                            bg-white hover:border-[var(--accent-primary-color)]
+                                            transition-colors duration-200"
+                                        data-target="brandGroup"
+                                        aria-expanded="false">
+
+                                        <span class="flex items-center gap-3">
+                                            <i class="fa-solid fa-tag text-sm text-gray-500"></i>
+                                            <span class="pText font-medium">Značka</span>
+                                        </span>
+
+                                        <i class="fa-solid fa-chevron-down text-xs text-gray-500
+                                                transition-transform duration-300"></i>
+                                    </button>
+
+                                    <div id="brandGroup"
+                                        class="filterGroupBody overflow-hidden max-h-0
+                                            transition-[max-height] duration-300 ease-in-out
+                                            absolute left-0 right-0 top-full z-30 mt-2
+                                            bg-white border-[var(--catalog-border-color)]
+                                            rounded-[var(--rounded-small)]
+                                            shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+
+                                        <div class="p-4">
+
+                                            <div id="brandFilterList"
+                                                class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-2">
+                                                <!-- LABELS -->
+                                            </div>
+
+                                            <button
+                                                id="loadMoreBrands"
+                                                type="button"
+                                                class="pText text-[var(--accent-primary-color)]
+                                                    font-bold mt-3
+                                                    hover:opacity-70 transition-opacity">
+                                                Zobraziť ďalšie značky
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- PRODUCT TYPE -->
+                                <div class="filterGroup relative">
+                                    <button
+                                        type="button"
+                                        class="filterGroupToggle w-full h-12 flex items-center justify-between
+                                            px-4 rounded-[var(--rounded-small)]
+                                            border border-[var(--catalog-border-color)]
+                                            bg-white hover:border-[var(--accent-primary-color)]
+                                            transition-colors duration-200"
+                                        data-target="productTypeGroup"
+                                        aria-expanded="false">
+
+                                        <span class="flex items-center gap-3">
+                                            <i class="fa-solid fa-cube text-sm text-gray-500"></i>
+                                            <span class="pText font-medium">Typ produktu</span>
+                                        </span>
+
+                                        <i class="fa-solid fa-chevron-down text-xs text-gray-500
+                                                transition-transform duration-300"></i>
+                                    </button>
+
+                                    <div id="productTypeGroup"
+                                        class="filterGroupBody overflow-hidden max-h-0
+                                            transition-[max-height] duration-300 ease-in-out
+                                            absolute left-0 right-0 top-full z-30 mt-2
+                                            bg-white border-[var(--catalog-border-color)]
+                                            rounded-[var(--rounded-small)]
+                                            shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+
+                                        <div class="p-4">
+
+                                            <div id="productTypeFilterList"
+                                                class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-2">
+                                                <!-- LABELS -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- PRICE -->
+                                <div class="filterGroup relative">
+                                    <button
+                                        type="button"
+                                        class="filterGroupToggle w-full h-12 flex items-center justify-between
+                                            px-4 rounded-[var(--rounded-small)]
+                                            border border-[var(--catalog-border-color)]
+                                            bg-white hover:border-[var(--accent-primary-color)]
+                                            transition-colors duration-200"
+                                        data-target="priceGroup"
+                                        aria-expanded="false">
+
+                                        <span class="flex items-center gap-3">
+                                            <i class="fa-solid fa-euro-sign text-sm text-gray-500"></i>
+                                            <span class="pText font-medium">Cena</span>
+                                        </span>
+
+                                        <i class="fa-solid fa-chevron-down text-xs text-gray-500
+                                                transition-transform duration-300"></i>
+                                    </button>
+
+                                    <div id="priceGroup"
+                                        class="filterGroupBody overflow-hidden max-h-0
+                                            transition-[max-height] duration-300 ease-in-out
+                                            absolute left-0 right-0 top-full z-30 mt-2
+                                            bg-white border-[var(--catalog-border-color)]
+                                            rounded-[var(--rounded-small)]
+                                            shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+
+                                        <div class="p-4">
+
+                                            <div class="flex gap-3">
+
+                                                <div class="flex-1">
+                                                    <label class="block text-xs text-gray-500 mb-1">
+                                                        Od
+                                                    </label>
+
+                                                    <input
+                                                        type="number"
+                                                        id="priceMin"
+                                                        placeholder="0 €"
+                                                        class="w-full h-10 px-3 rounded-lg
+                                                            border border-[var(--catalor-border-color)]
+                                                            outline-none
+                                                            focus:border-[var(--accent-primary-color)]">
+                                                </div>
+
+                                                <div class="flex-1">
+                                                    <label class="block text-xs text-gray-500 mb-1">
+                                                        Do
+                                                    </label>
+
+                                                    <input
+                                                        type="number"
+                                                        id="priceMax"
+                                                        placeholder="1000 €"
+                                                        class="w-full h-10 px-3 rounded-lg
+                                                            border border-[var(--catalor-border-color)]
+                                                            outline-none
+                                                            focus:border-[var(--accent-primary-color)]">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
-                            <!-- FILTERS  -->
+
+                            <!-- FILTER FOOTER -->
+                            <div class="flex items-center justify-end mt-3">
+
+                                <button
+                                    id="clearFilters"
+                                    type="button"
+                                    class="h-10 px-4 flex items-center gap-2
+                                        rounded-lg
+                                        text-sm font-semibold
+                                        text-[var(--accent-primary-color)]
+                                        bg-[var(--accent-primary-color)]/10
+                                        hover:bg-[var(--accent-primary-color)]/20
+                                        transition-colors duration-200">
+
+                                    <span>Vymazať filtre</span>
+                                    <i class="fa-solid fa-rotate-right text-xs"></i>
+
+                                </button>
+
+                            </div>
 
                         </div>
                     </div>

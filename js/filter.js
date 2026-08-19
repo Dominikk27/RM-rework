@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // FILTER GROUPS
     document.querySelectorAll('.filterGroupToggle').forEach(btn => {
         const body = document.getElementById(btn.dataset.target);
-        const icon = btn.querySelector('i');
+        const icon = btn.querySelector('.fa-chevron-down');
 
         if (btn.getAttribute('aria-expanded') === 'true') {
             body.style.maxHeight = body.scrollHeight + 'px';
@@ -19,10 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 body.style.maxHeight = '0px';
                 btn.setAttribute('aria-expanded', 'false');
                 icon.classList.remove('rotate-180');
+                body.classList.remove('border');
             } else {
                 body.style.maxHeight = body.scrollHeight + 'px';
                 btn.setAttribute('aria-expanded', 'true');
                 icon.classList.add('rotate-180');
+                body.classList.add('border');
             }
         });
     });

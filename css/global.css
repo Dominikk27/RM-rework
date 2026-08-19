@@ -142,3 +142,9 @@ html {
 .accentColor {
     color: var(--accent-color);
 }
+
+
+.filterGroupToggle:focus{
+    outline: 1;
+    outline-color: var(--accent-primary-color);
+}
