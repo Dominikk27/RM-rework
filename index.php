@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="716f70e9-d65b-49ec-b2aa-451c3221d137"></script>
         
         <!-- SCRIPTS -->
         <script src="./js/mailSender.js" defer></script>
@@ -25,7 +27,7 @@
         <header id="navigationHeader" class="fixed top-0 left-0 w-full bg-[var(--decent-color)] z-50 transition-all duration-300">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-12 max-w-[80rem] mx-auto">
                 <div class="col-span-2 md:col-span-2 lg:col-span-2 z-50">
-                    <a href="#" class="inline-block">
+                    <a href="/" class="inline-block">
                         <img src="./assets/logo/logo.png" class="w-[6.5rem] h-[6rem]" alt="">
                     </a>
                 </div>
@@ -59,7 +61,7 @@
                     class="bodyText bg-[var(--secondary-color)] text-white rounded-[var(--rounded-small)] px-8 py-2 hover:opacity-90 transition-opacity">
                         Servis
                     </a>
-                    <a href="#katalog"
+                    <a href="/catalog.php"
                     class="bodyText bg-[var(--accent-primary-color)] text-white rounded-[var(--rounded-small)] px-8 py-2 hover:opacity-90 transition-opacity">
                         Katalóg
                     </a>
@@ -92,7 +94,7 @@
                     class="bodyText text-center bg-[var(--secondary-color)] text-white rounded-[var(--rounded-small)] px-8 py-3 hover:opacity-90 transition-opacity">
                         Servis
                     </a>
-                    <a href="#katalog"
+                    <a href="/catalog.php"
                     class="bodyText text-center bg-[var(--accent-primary-color)] text-white rounded-[var(--rounded-small)] px-8 py-3 hover:opacity-90 transition-opacity">
                         Katalóg
                     </a>
@@ -100,7 +102,7 @@
             </div>
         </header>
         <!-- HERO -->
-        <section class="bg-[var(--bg-color)] px-4 md:px-16  lg:px-32 scroll-mt-28">
+        <section class="bg-[var(--bg-color)] pt-10 sm:pt-0 px-4 md:px-16  lg:px-32 scroll-mt-28">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 lg:max-w-[80rem] gap-8 min-h-screen mx-auto items-start lg:items-center py-20 lg:pt-0">
                 <div class="col-span-4 lg:col-span-6 flex flex-col justify-center gap-[var(--medium-gap)]">
                     <h1 class="h1Text">Všetko pre starostlivosť o vašu záhradu</h1>
@@ -110,16 +112,18 @@
                         ktoré vám pomôžu zvládnuť každú prácu.
                     </p>
                     <div class="flex gap-[var(--small-gap)]">
-                        <button class="heroButton bg-[var(--secondary-color)] text-white transition-opacity duration-300 hover:opacity-70">Prezerať katalóg</button>
-                        <button class="heroButton relative overflow-hidden border-2 border-[var(--line-color)] text-black
+                        <div class="heroButton flex items-center justify-center bg-[var(--secondary-color)] text-white transition-opacity duration-300 hover:opacity-70">
+                            <a href="/catalog.php" class="">Prezerať katalóg</a>
+                        </div>
+                        <div class="heroButton flex items-center justify-center relative overflow-hidden border-2 border-[var(--line-color)] text-black
                                        before:absolute before:top-0 before:left-0 before:h-full before:w-0
                                        before:bg-[var(--secondary-color)] before:transition-all before:duration-300
                                        hover:before:w-full hover:text-white">
-                            <span class="relative z-10">
+                            <a class="relative z-10">
                                 Kontaktujte nás
-                            </span>
+                            </a>
 
-                        </button>
+                        </div>
                     </div>
                     <!-- NUMBERS  -->
                     <div class="mt-10
@@ -182,7 +186,7 @@
                         <h2 class="h2Text">
                             Produkty z nášho katalógu
                         </h2>
-                        <a href="#" class="pText text-[var(--accent-primary-color)]">
+                        <a href="/catalog.php" class="pText text-[var(--accent-primary-color)]">
                             CELÝ KATALÓG →
                         </a>
                     </div>
@@ -296,7 +300,7 @@
         <section class="bg-[var(--bg-color)] lg:px-32 scroll-mt-28">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 max-w-[80rem] mx-auto py-20 ">
                 <div class="col-span-4 md:col-span-8 lg:col-span-12">
-                    <h2 class="h2Text">Naši overený partneri</h2>
+                    <h2 class="h2Text">Naši overení partneri</h2>
                 </div>
                 <div class="col-span-4 md:col-span-8 lg:col-span-12">
                     <div class="col-span-4 md:col-span-8 lg:col-span-12">
@@ -335,7 +339,7 @@
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 max-w-[80rem] mx-auto py-20  items-center">
                 <div class="col-span-4 md:col-span-8 lg:col-span-12 flex flex-col items-center justify-center text-center gap-[var(--medium-gap)]">
                     <p class="pText text-[var(--accent-primary-color)] font-[800]">NAVŠTÍVTE NAŠU PREDAJŇU</p>
-                    <h1 class="h1Text">Prídte si vybrať techniku, na ktorú sa môžete spoľahnúť</h1>
+                    <h1 class="h1Text">Prídite si vybrať techniku, na ktorú sa môžete spoľahnúť</h1>
                     <p class="bodyText mx-auto w-[80%] mt-3">V našej predajni nájdete široký výber záhradnej a lesnej techniky spolu s odborným poradenstvom. Pomôžeme vám vybrať stroj, ktorý bude spoľahlivo slúžiť a dokonale vyhovovať vašim potrebám.</p>
                     <button class="qaButton bg-[var(--secondary-color)] text-white">Máte otázky?</button>
                 </div>

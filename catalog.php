@@ -1,12 +1,31 @@
 <?php 
+    require_once __DIR__ . '/php/config/database.php';
+    require_once __DIR__ . '/php/filter/filterSetup.php';
     require_once __DIR__ . '/php/products_data.php';
     require_once __DIR__ . '/components/product_card.php';
     require_once __DIR__ . '/php/pagination.php';
 ?>
 
+<?php 
+    $pdo = getPDO();
+
+    $filters = getFilterOptions($pdo);
+?>
+
 <?php
     $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-    $brandSlug = $_GET['brand'] ?? null;
+    $brandSlug = isset($_GET['brands']) && $_GET['brands'] !== ''
+    ? array_filter(explode(',', $_GET['brands']))
+    : null;
+    
+    $min = isset($_GET['min']) && $_GET['min'] !== ''
+    ? (float) $_GET['min']
+    : null;
+
+    $max = isset($_GET['max']) && $_GET['max'] !== ''
+        ? (float) $_GET['max']
+        : null;
+
     $categorySlug = $_GET['category'] ?? null;
 
 ?>
@@ -16,12 +35,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="716f70e9-d65b-49ec-b2aa-451c3221d137"></script>
         
         <!-- SCRIPTS -->
         <!-- <script src="./js/mailSender.js" defer></script> -->
         <!-- <script src="./js/counter.js" defer></script> -->
         <script src="./js/navigation.js" defer></script>
         <script src="./js/filter.js" defer></script>
+        <script src="./js/filterLogic.js" defer></script>
         
         <!-- STYLES SCRIPTS -->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -39,26 +61,26 @@
         <header id="navigationHeader" class="fixed top-0 left-0 w-full bg-[var(--decent-color)] z-50 transition-all duration-300">
             <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-12 max-w-[80rem] mx-auto">
                 <div class="col-span-2 md:col-span-2 lg:col-span-2 z-50">
-                    <a href="#" class="inline-block">
+                    <a href="/" class="inline-block">
                         <img src="./assets/logo/logo.png" class="w-[6.5rem] h-[6rem]" alt="">
                     </a>
                 </div>
                 <nav class="hidden lg:flex lg:col-span-6 flex  items-center justify-center gap-10">
-                    <a href="#services" class="
+                    <a href="/#services" class="
                                     bodyText relative hover:text-[var(--accent-primary-color)] transition-colors
                                     after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:w-full 
                                     after:bg-[var(--accent-primary-color)] after:origin-left after:scale-x-0 
                                     hover:after:scale-x-100 after:transition-transform">
                                     Služby
                     </a>
-                    <a href="#recommended" class="
+                    <a href="/#recommended" class="
                                     bodyText relative hover:text-[var(--accent-primary-color)] transition-colors
                                     after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:w-full 
                                     after:bg-[var(--accent-primary-color)] after:origin-left after:scale-x-0 
                                     hover:after:scale-x-100 after:transition-transform">
                                     Produkty
                     </a>
-                    <a href="#contact" class="
+                    <a href="/#contact" class="
                                     bodyText relative hover:text-[var(--accent-primary-color)] transition-colors
                                     after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:w-full 
                                     after:bg-[var(--accent-primary-color)] after:origin-left after:scale-x-0 
@@ -74,7 +96,7 @@
                         Servis
                     </a>
                     <a href="#katalog"
-                    class="bodyText bg-[var(--accent-primary-color)] text-white rounded-[var(--rounded-small)] px-8 py-2 hover:opacity-90 transition-opacity">
+                    class="hidden bodyText bg-[var(--accent-primary-color)] text-white rounded-[var(--rounded-small)] px-8 py-2 hover:opacity-90 transition-opacity">
                         Katalóg
                     </a>
                 </div>
@@ -107,7 +129,7 @@
                         Servis
                     </a>
                     <a href="#katalog"
-                    class="bodyText text-center bg-[var(--accent-primary-color)] text-white rounded-[var(--rounded-small)] px-8 py-3 hover:opacity-90 transition-opacity">
+                    class="hidden bodyText text-center bg-[var(--accent-primary-color)] text-white rounded-[var(--rounded-small)] px-8 py-3 hover:opacity-90 transition-opacity">
                         Katalóg
                     </a>
                 </div>
@@ -117,6 +139,8 @@
         <!-- MAIN -->
         <main class="relative flex justify-center items-center max-w-[90rem] mx-auto bg-white border-1 border-[var(--catalog-border-color)]">
             <div class="flex flex-col flex-1 min-h-0 pt-[6rem] mt-5 max-w-[80rem] px-4 sm:px-8 lg:px-12">
+                
+                <!-- PRODUCTS FILTER -->
                 <div id="filterBlock" class="shrink-0 border-b border-[var(--catalog-border-color)] transition-all duration-300">
                     <button
                         id="filterToggle"
@@ -226,19 +250,29 @@
                                         <div class="p-4">
 
                                             <div id="brandFilterList"
-                                                class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-2">
+                                                class="flex flex-col gap-2 max-h-[220px] overflow-y-auto z-20 overflow pr-2">
                                                 <!-- LABELS -->
+                                                <?php foreach ($filters['brands'] as $brand): ?>
+
+                                                    <label class="flex items-center gap-3 cursor-pointer group">
+
+                                                        <input
+                                                            type="checkbox"
+                                                            name="brands[]"
+                                                            data-filter="brands"
+                                                            value="<?= htmlspecialchars($brand['slug']) ?>"
+                                                            class="filterInput w-4 h-4 accent-[var(--accent-primary-color)] cursor-pointer"
+                                                            <?= !empty($brandSlug) && in_array($brand['slug'], $brandSlug) ? 'checked' : '' ?>
+                                                        >
+
+                                                        <span class="pText group-hover:text-[var(--accent-primary-color)] transition-colors">
+                                                            <?= htmlspecialchars($brand['name']) ?>
+                                                        </span>
+
+                                                    </label>
+
+                                                <?php endforeach; ?>
                                             </div>
-
-                                            <button
-                                                id="loadMoreBrands"
-                                                type="button"
-                                                class="pText text-[var(--accent-primary-color)]
-                                                    font-bold mt-3
-                                                    hover:opacity-70 transition-opacity">
-                                                Zobraziť ďalšie značky
-                                            </button>
-
                                         </div>
                                     </div>
                                 </div>
@@ -326,11 +360,13 @@
                                                     <input
                                                         type="number"
                                                         id="priceMin"
+                                                        data-filter="min"
                                                         placeholder="0 €"
-                                                        class="w-full h-10 px-3 rounded-lg
+                                                        class="filterInput w-full h-10 px-3 rounded-lg
                                                             border border-[var(--catalor-border-color)]
                                                             outline-none
-                                                            focus:border-[var(--accent-primary-color)]">
+                                                            focus:border-[var(--accent-primary-color)]"
+                                                        value="<?= htmlspecialchars($_GET['min'] ?? '') ?>">
                                                 </div>
 
                                                 <div class="flex-1">
@@ -341,11 +377,13 @@
                                                     <input
                                                         type="number"
                                                         id="priceMax"
+                                                        data-filter="max"
                                                         placeholder="1000 €"
-                                                        class="w-full h-10 px-3 rounded-lg
+                                                        class="filterInput w-full h-10 px-3 rounded-lg
                                                             border border-[var(--catalor-border-color)]
                                                             outline-none
-                                                            focus:border-[var(--accent-primary-color)]">
+                                                            focus:border-[var(--accent-primary-color)]"
+                                                        value="<?= htmlspecialchars($_GET['max'] ?? '') ?>">
                                                 </div>
 
                                             </div>
@@ -358,10 +396,26 @@
 
 
                             <!-- FILTER FOOTER -->
-                            <div class="flex items-center justify-end mt-3">
+                            <div class="flex items-center justify-end mt-3 gap-5">
 
                                 <button
-                                    id="clearFilters"
+                                    id="applyFilter"
+                                    type="button"
+                                    class="h-10 px-4 flex items-center gap-2
+                                        rounded-lg
+                                        text-sm font-semibold
+                                        text-[var(--accent-primary-color)]
+                                        bg-[var(--accent-primary-color)]/10
+                                        hover:bg-[var(--accent-primary-color)]/20
+                                        transition-colors duration-200">
+
+                                    <span>Aplikovať filter</span>
+                                    <i class="fa-solid fa-check text-xs"></i>
+
+                                </button>
+
+                                <button
+                                    id="resetFilter"
                                     type="button"
                                     class="h-10 px-4 flex items-center gap-2
                                         rounded-lg
@@ -384,7 +438,7 @@
 
                 <!-- PRODUCTS -->
                 <?php 
-                $result = getProducts($brandSlug, $categorySlug, $page, 24);
+                $result = getProducts($pdo, $brandSlug, $min, $max, $categorySlug, $page, 24);
                 $products = $result['items'];
                 ?>
                 <section id="productsArea" class="flex-1 min-h-0 max-w-[100rem] px-4">
@@ -398,10 +452,17 @@
                         <?php endif; ?>
                     </div>
                         <!-- PAGES -->
-                        <?php renderPagination($result['page'], $result['totalPages'], array_filter([
-                            'brand' => $brandSlug,
-                            'category' => $categorySlug,
-                        ])); ?>
+                        <?php 
+                            renderPagination(
+                                $result['page'], 
+                                $result['totalPages'], 
+                                array_filter([
+                                    'brands' => !empty($brandSlug) ? implode(',', $brandSlug) : null,
+                                    'min' => $min,
+                                    'max' => $max,
+                                    'category' => $categorySlug,
+                            ])); 
+                        ?>
                 </section>
             </div>
         </main>

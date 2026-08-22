@@ -2,7 +2,7 @@
 
 function renderProductCard(array $product): void {
     $name = htmlspecialchars($product['name'] ?? '');
-    $image =!empty($product['images'][0]) ? $product['images'][0] : '../assets/products/Image-not-found.png';
+    $image =!empty($product['images'][0]) ? $product['images'][0] : '../assets/products/Image-not-found.jpg';
     $price = !empty($product['price_b2c']) && (float)$product['price_b2c'] > 0
         ? number_format((float)$product['price_b2c'], 2, ',', ' ') . ' €'
         : '';
@@ -14,6 +14,7 @@ function renderProductCard(array $product): void {
             <img
                 src="<?= htmlspecialchars($image) ?>"
                 alt="<?= $name ?>"
+                onerror="this.onerror=null; this.src='/assets/products/Image-not-found.jpg';"
                 class="w-full h-full object-contain object-top rounded-t-xl"
             >
         </div>

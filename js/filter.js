@@ -36,7 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
             mainPanel.style.maxHeight = '0px';
             mainToggle.setAttribute('aria-expanded', 'false');
             mainIcon.classList.remove('rotate-180');
+
+            setTimeout(() => {
+                mainPanel.classList.remove('overflow-visible');
+                mainPanel.classList.add('overflow-hidden');
+            }, 300);
         } else {
+            mainPanel.classList.remove('overflow-visible');
+            mainPanel.classList.add('overflow-hidden')
+
             document.querySelectorAll('.filterGroup').forEach(group => {
                 const body = group.querySelector('.filterGroupBody');
                 const toggle = group.querySelector('.filterGroupToggle');
@@ -50,8 +58,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
             requestAnimationFrame(() => {
                 mainPanel.style.maxHeight = mainPanel.scrollHeight + 'px';
+
+                setTimeout(() =>{
+                    mainPanel.classList.remove('overflow-hidden');
+                    mainPanel.classList.add('overflow-visible');
+                }, 300);
+
             });
         }
+    });
+
+
+    document.addEventListener('click', (event) => {
+
+        const clickedGroup = event.target.closest('.filterGroup');
+
+        document.querySelectorAll('.filterGroup').forEach(group => {
+
+            const body = group.querySelector('.filterGroupBody');
+            const toggle = group.querySelector('.filterGroupToggle');
+            const icon = toggle.querySelector('.fa-chevron-down');
+
+            const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+            if (!isOpen) {
+                return;
+            }
+
+            // Ak klikol do iného filter boxu alebo mimo všetkých filter boxov
+            if (group !== clickedGroup) {
+
+                body.style.maxHeight = '0px';
+                toggle.setAttribute('aria-expanded', 'false');
+                icon.classList.remove('rotate-180');
+                body.classList.remove('border');
+
+            }
+
+        });
+
     });
 
 });
