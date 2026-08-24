@@ -148,10 +148,10 @@
                 </div>
 
                 <!-- PRODUCT SECTION -->
-                <div class="productSection flex flex-col md:flex-row gap-5 px-4 py-5">
-                    <div class="imageSection flex flex-col-reverse md:flex-row gap-4 min-w-0 flex-1">
+                <div class="productSection flex flex-col lg:flex-row gap-5 px-4 py-5">
+                    <div class="imageSection flex flex-col-reverse lg:flex-row gap-4 min-w-0 flex-1">
                         <!-- THUMBNAILS -->
-                        <div class="flex flex-row md:flex-col gap-3 pb-5 md:py-0 w-full md:w-24 shrink-0">
+                        <div class="flex flex-row lg:flex-col gap-3 pb-5 lg:py-0 md:w-auto shrink-0">
 
                             <button class="w-24 h-24 rounded-lg border-2 border-[var(--accent-primary-color)] bg-white p-2">
                                 <img 
@@ -176,8 +176,8 @@
                                     class="w-full h-full object-contain"
                                 >
                             </button>
-                            <button class="w-auto md:w-24 h-24 md:h-12 rounded-lg border-2 border-[var(--catalog-border-color)] bg-white p-2">
-                                <i class="fa-solid fa-chevron-down -rotate-90 md:rotate-0"></i>
+                            <button class="w-auto h-24 md:h-auto md:w-24 md:h-12 rounded-lg border-2 border-[var(--catalog-border-color)] bg-white p-2">
+                                <i class="fa-solid fa-chevron-down -rotate-90 lg:rotate-0"></i>
                             </button>
 
                         </div>
@@ -260,7 +260,7 @@
                 <!-- PRODUCT DETAILS -->
                 <div class="flex flex-col px-4 py-5">
                     <div class="border-b border-[var(--catalog-border-color)]"></div>
-                    <div class="flex gap-5 py-3">
+                    <div class="flex gap-5 pb-6 pt-10">
                         <button
                             type="button"
                             data-tab="description" 
@@ -270,7 +270,7 @@
                             data-tab="parameters"
                             class="tabButton h5Text">Parametre</button>
                     </div>
-                    <div id="description" class="tabContent flex flex-col md:flex-row gap-5">
+                    <div id="description" class="tabContent flex flex-col lg:flex-row gap-5">
                         <p class="flex-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, iusto culpa maiores, dolore fugit suscipit eligendi, vel consectetur quasi exercitationem animi tenetur provident praesentium sapiente quis sit deleniti fugiat molestias.</p>
                         <div class="table flex-1">
                             <div class="border border-black/10 rounded-xl overflow-hidden">
