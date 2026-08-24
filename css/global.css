@@ -8,9 +8,13 @@
     --catalog-border-color: #E8E8E4;
     --catalog-background: #FAFAFA;
 
+    --catalog-stock-color: #E6EDD6;
+
     --accent-primary-color: #B64E10;
     --accent-secondary-color: #C45C3E;
     --secondary-color: #3D3229;
+
+    --product-price-color: #548508;
 
     --font-header: 'Fraunces', serif;
     --font-body: 'Inter', sans-serif;
@@ -26,6 +30,9 @@
 
     --h4-size: 1.875rem;
     --h4-line: 2rem;
+
+    --h5-size: 1.3rem;
+    --h5-line: 1.1rem;
 
     --body-size: 1rem;
     --body-line: 1.5rem;
@@ -70,6 +77,16 @@ html {
     font-size: var(--body-size);
     cursor: pointer;
 }
+
+.productButton{
+    width: 10.5rem;   /*8.3125rem*/
+    height: 3.5rem; /*2.5625rem*/
+    border-radius: var(--rounded-small);
+    font-family: var(--font-body);
+    font-size: var(--body-size);
+    cursor: pointer;
+}
+
 
 .qaButton{
     width: 10.6rem;
@@ -117,6 +134,13 @@ html {
     font-size: var(--h4-size);
     line-height: var(--h4-line);
 }
+
+.h5Text {
+    font-family: var(--font-header);
+    font-size: var(--h5-size);
+    line-height: var(--h5-line);
+}
+
 
 .bodyText {
     font-family: var(--font-body);

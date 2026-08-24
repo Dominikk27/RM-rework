@@ -5,9 +5,9 @@
     function getProducts(
                     PDO $pdo,
                     ?array $brandSlug = null,
+                    ?array $categorySlug = null,
                     ?float $min = null,
                     ?float $max = null, 
-                    ?string $categorySlug = null,
                     int $page = 1,
                     int $productsPerPage = 24
     ): array{
@@ -38,6 +38,18 @@
             $joins .= " AND b.slug IN (" . implode(',', $placeholders) . ")";
         }
 
+        if (!empty($categorySlug)) {
+            $placeholders = [];
+
+            foreach($categorySlug as $index => $category){
+                $key = "category_$index";
+                $placeholders[] = ":$key";
+                $params[$key] = $category;
+            }
+
+            $joins .= " AND c.slug IN (" . implode(',', $placeholders) . ")";
+        }
+
         if($min !== null){
             $joins .= " AND p.price_b2c >= :min";
             $params['min'] = $min;
@@ -47,11 +59,6 @@
         if($max !== null){
             $joins .= " AND p.price_b2c <= :max";
             $params['max'] = $max;
-        }
-
-        if ($categorySlug !== null){
-            $joins .= " AND c.slug = :category_slug";
-            $params['category_slug'] = $categorySlug;
         }
 
         $countRows = "SELECT COUNT(DISTINCT p.name) AS total $joins";
@@ -99,22 +106,6 @@
             'perPage' => $productsPerPage,
             'totalPages' => (int)ceil($total / $productsPerPage),
         ];
-    }
-
-
-    function getBrandsFilter(): array {
-        $pdo = getPDO();
-        $query = "
-                SELECT DISTINCT
-                    b.id,
-                    b.name,
-                    b.slug,
-                FROM brands_new b
-                INNER JOIN products p ON p.brand_id = b.id
-                ORDER BY b.name ASC
-        ";
-
-        return $pdo->query($query)->fetchAll();
     }
 
 ?>

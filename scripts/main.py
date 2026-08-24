@@ -34,12 +34,12 @@ def main():
     print(f"{len(combine)}")
     SaveSystem.save(combine, "combined.json")
 
-    grouper = ProductGrouper(RULES)
-    groups = grouper.group(combine)
+    #grouper = ProductGrouper(RULES)
+    #groups = grouper.group(combine)
 
-    print(f"po zgrupneni: {len(groups)}")
+    #print(f"po zgrupneni: {len(groups)}")
 
-    SaveSystem.save([g.to_dict() for g in groups], "grouped.json")
+    #SaveSystem.save([g.to_dict() for g in groups], "grouped.json")
 
     brands = Extractor.brands(combine)
     print(f"Brands: {len(brands)}")
@@ -64,7 +64,7 @@ def main():
                 (brand, slug)
             )
 
-            res = db.fetchone("SELECT id FROM brands WHERE name = %s", (brand,))
+            res = db.fetchone("SELECT id FROM brands_new WHERE name = %s", (brand,))
 
             if res:
                 brand_map[brand] = res[0]
@@ -76,24 +76,17 @@ def main():
     cat_manager = CategoryManager(db)
     cat_manager.setup_categories()
 
-    for p in combine:
-        sku = p.get('kod_produktu')
-        brand_id = brand_map.get(p.get('brand'))
-
-
     print("Ukladám produkty do novej štruktúry...")
     for p in combine:
         product_code = p.get('kod_produktu')
         brand_id = brand_map.get(p.get('brand'))
         category_id = cat_manager.get_category_id(p)
         
-        # Príprava JSON polí (podľa tvojho dumpu vyzerajú ako JSON polia/objekty)
         images_json = json.dumps(p.get('images', []), ensure_ascii=False)
         params_json = json.dumps(p.get('technical_description', {}), ensure_ascii=False)
         
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        # Vloženie/Aktualizácia produktu
         query = """
             INSERT INTO products 
                 (product_code, name, brand_id, price, price_b2c, description, images, parameters, source, created_at, updated_at)
@@ -124,8 +117,6 @@ def main():
             now
         ))
 
-        # 4. Prepojenie s kategóriou (product_categories)
-        # Najskôr zistíme ID práve vloženého/upraveného produktu
         res_p = db.fetchone("SELECT id FROM products WHERE product_code = %s", (product_code,))
         if res_p and category_id:
             p_id = res_p[0]

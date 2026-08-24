@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
         url.searchParams.delete('page');
         url.searchParams.delete('brands');
+        url.searchParams.delete('categories');
         url.searchParams.delete('min');
         url.searchParams.delete('max');
 

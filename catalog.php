@@ -17,6 +17,10 @@
     $brandSlug = isset($_GET['brands']) && $_GET['brands'] !== ''
     ? array_filter(explode(',', $_GET['brands']))
     : null;
+
+    $categorySlug = isset($_GET['categories']) && $_GET['categories'] !== ''
+    ? array_filter(explode(',', $_GET['categories']))
+    : null;
     
     $min = isset($_GET['min']) && $_GET['min'] !== ''
     ? (float) $_GET['min']
@@ -26,7 +30,7 @@
         ? (float) $_GET['max']
         : null;
 
-    $categorySlug = $_GET['category'] ?? null;
+
 
 ?>
 
@@ -212,6 +216,26 @@
                                             <div id="categoryFilterList"
                                                 class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-2">
                                                 <!-- LABELS -->
+                                                <?php foreach ($filters['categories'] as $category): ?>
+
+                                                    <label class="flex items-center gap-3 cursor-pointer group">
+
+                                                        <input
+                                                            type="checkbox"
+                                                            name="categories[]"
+                                                            data-filter="categories"
+                                                            value="<?= htmlspecialchars($category['slug']) ?>"
+                                                            class="filterInput w-4 h-4 accent-[var(--accent-primary-color)] cursor-pointer"
+                                                            <?= !empty($categorySlug) && in_array($category['slug'], $categorySlug) ? 'checked' : '' ?>
+                                                        >
+
+                                                        <span class="pText group-hover:text-[var(--accent-primary-color)] transition-colors">
+                                                            <?= htmlspecialchars($category['name']) ?>
+                                                        </span>
+
+                                                    </label>
+
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -438,7 +462,7 @@
 
                 <!-- PRODUCTS -->
                 <?php 
-                $result = getProducts($pdo, $brandSlug, $min, $max, $categorySlug, $page, 24);
+                $result = getProducts($pdo, $brandSlug, $categorySlug, $min, $max, $page, 24);
                 $products = $result['items'];
                 ?>
                 <section id="productsArea" class="flex-1 min-h-0 max-w-[100rem] px-4">
@@ -458,9 +482,9 @@
                                 $result['totalPages'], 
                                 array_filter([
                                     'brands' => !empty($brandSlug) ? implode(',', $brandSlug) : null,
+                                    'categories' => !empty($categorySlug) ? implode(',', $categorySlug) : null,
                                     'min' => $min,
                                     'max' => $max,
-                                    'category' => $categorySlug,
                             ])); 
                         ?>
                 </section>

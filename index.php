@@ -113,13 +113,13 @@
                     </p>
                     <div class="flex gap-[var(--small-gap)]">
                         <div class="heroButton flex items-center justify-center bg-[var(--secondary-color)] text-white transition-opacity duration-300 hover:opacity-70">
-                            <a href="/catalog.php" class="">Prezerať katalóg</a>
+                            <a href="/catalog.php" class="w-full h-full text-center content-center">Prezerať katalóg</a>
                         </div>
                         <div class="heroButton flex items-center justify-center relative overflow-hidden border-2 border-[var(--line-color)] text-black
                                        before:absolute before:top-0 before:left-0 before:h-full before:w-0
                                        before:bg-[var(--secondary-color)] before:transition-all before:duration-300
                                        hover:before:w-full hover:text-white">
-                            <a class="relative z-10">
+                            <a class="relative z-10 w-full h-full text-center content-center">
                                 Kontaktujte nás
                             </a>
 
