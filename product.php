@@ -141,18 +141,17 @@
         
         
         <main class="w-full px-4 lg:px-8 pt-[7rem] pb-8 min-h-screen">
-            <div class="max-w-[90rem] mx-auto bg-white rounded-xl border-1 border-[var(--catalog-border-color)]">
+            <div class="max-w-[90rem] flex flex-col mx-auto bg-white rounded-xl border-1 border-[var(--catalog-border-color)]">
                 <div class="header px-4 py-5 flex flex-col gap-3">
                     <a href="#"><i class="fa-solid fa-angle-left"></i> Späť</a>
                     <div class="border-b border-[var(--catalog-border-color)]"></div>
                 </div>
 
                 <!-- PRODUCT SECTION -->
-                <div class="productSection flex px-4 py-5">
-                    <div class="imageSection flex gap-4 min-w-0 flex-1">
-
+                <div class="productSection flex flex-col md:flex-row gap-5 px-4 py-5">
+                    <div class="imageSection flex flex-col-reverse md:flex-row gap-4 min-w-0 flex-1">
                         <!-- THUMBNAILS -->
-                        <div class="flex flex-col gap-3 w-24 shrink-0">
+                        <div class="flex flex-row md:flex-col gap-3 pb-5 md:py-0 w-full md:w-24 shrink-0">
 
                             <button class="w-24 h-24 rounded-lg border-2 border-[var(--accent-primary-color)] bg-white p-2">
                                 <img 
@@ -177,8 +176,8 @@
                                     class="w-full h-full object-contain"
                                 >
                             </button>
-                            <button class="w-24 h-12 rounded-lg border-2 border-[var(--catalog-border-color)] bg-white p-2">
-                                <i class="fa-solid fa-chevron-down"></i>
+                            <button class="w-auto md:w-24 h-24 md:h-12 rounded-lg border-2 border-[var(--catalog-border-color)] bg-white p-2">
+                                <i class="fa-solid fa-chevron-down -rotate-90 md:rotate-0"></i>
                             </button>
 
                         </div>
@@ -192,8 +191,9 @@
                                 class="w-full h-full object-contain"
                             >
                         </div>
+                    </div>
                         <div class="productBox flex-1 flex flex-col gap-5">
-                            <div class="header flex justify-between items-center">
+                            <div class="header flex flex-col justify-start items-start md:flex-row md:justify-between md:items-center gap-2">
                                 <div class="bg-[var(--catalog-stock-color)] rounded-md py-1 px-2">
                                     <p class="text-[var(--accent-secondary-color)]">Skladom</p>
                                 </div>
@@ -203,26 +203,28 @@
                                 </div>
                             </div>
                             <div class="productContent flex flex-col gap-5">
-                                <h1 class="h2Text">PRODUCT fddfsf ss sfasdsdf ydfds sdfa</h1>
+                                <h1 class="h4Text md:h2Text">PRODUCT fddfsf ss sfasdsdf ydfds sdfa</h1>
                                 <div class="self-start flex items-center gap-[var(--small-gap)] px-2 py-1 rounded-md bg-[var(--catalog-stock-color)]">
-                                    <i class="fa-solid fa-tag text-[1.6rem]"></i>
-                                    <p class="h4Text">Značka</p>
+                                    <i class="fa-solid fa-tag text-[1.2rem] md:text-[1.6rem]"></i>
+                                    <p class="h5Text md:h4Text">Značka</p>
                                 </div>
                                 <div class="border-b border-[var(--catalog-border-color)]"></div>
                                 <div class="priceBox flex flex-col px-3 gap-5 ">
                                     <div class="px-2 py-3">
                                         <h3 class="h3Text text-[var(--product-price-color)]">35,90€</h3>
                                     </div>
-                                    <div class="flex gap-3 justify-end">
+                                    <div class="flex gap-3 justify-end items-stretch">
                                         <div class="productButton flex items-center justify-center bg-[var(--product-price-color)] text-white transition-opacity duration-300 hover:opacity-70">
                                             <a href="#" class="w-full h-full text-center content-center">Kontaktujte nás</a>
                                         </div>
-                                        <button class="border-2 border-[var(--catalog-border-color)] rounded-md aspect-square  h-full"><i class="fa-solid fa-share-nodes"></i></button>
+                                        <button class="border-2 border-[var(--catalog-border-color)] rounded-md aspect-square h-auto w-14 md:h-full">
+                                            <i class="fa-solid fa-share-nodes"></i>
+                                        </button>
                                     </div>
                                     <div class="border-b border-[var(--catalog-border-color)] pt-5"></div>
                                 </div>
 
-                                <div class="services grid grid-cols-3 gap-2 items-start">
+                                <div class="services grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-2 items-start">
                                     <div class="col-span-1 flex gap-3 items-center">
                                         <div class="w-12 h-12 aspect-square">
                                             <img src="/assets/icons/mechanic.png" alt="" class="w-full h-full object-contain">
@@ -253,9 +255,7 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                </div>
 
                 <!-- PRODUCT DETAILS -->
                 <div class="flex flex-col px-4 py-5">
@@ -270,7 +270,7 @@
                             data-tab="parameters"
                             class="tabButton h5Text">Parametre</button>
                     </div>
-                    <div id="description" class="tabContent flex">
+                    <div id="description" class="tabContent flex flex-col md:flex-row gap-5">
                         <p class="flex-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, iusto culpa maiores, dolore fugit suscipit eligendi, vel consectetur quasi exercitationem animi tenetur provident praesentium sapiente quis sit deleniti fugiat molestias.</p>
                         <div class="table flex-1">
                             <div class="border border-black/10 rounded-xl overflow-hidden">
