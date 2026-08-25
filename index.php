@@ -119,7 +119,7 @@
                                        before:absolute before:top-0 before:left-0 before:h-full before:w-0
                                        before:bg-[var(--secondary-color)] before:transition-all before:duration-300
                                        hover:before:w-full hover:text-white">
-                            <a class="relative z-10 w-full h-full text-center content-center">
+                            <a href="#contact" class="relative z-10 w-full h-full text-center content-center">
                                 Kontaktujte nás
                             </a>
 
@@ -368,15 +368,24 @@
 
                             <div class="flex flex-col gap-[var(--small-gap)]">
                                 <p class="bodyText">OTVÁRACIE HODINY</p>
-                                <div class="flex flex-col gap-[var(--extra-small-gap)]">
-                                    <p class="pText"><strong>PO-PIA</strong>: 8:00 - 16:00</p>
-                                    <p class="pText"><strong>SO</strong>: 8:00 - 11:30</p>
-                                    <p class="pText"><strong>NE</strong>: ZATVORENÉ</p>
+                                <div class="flex flex-col lg:flex-row gap-5 lg:gap-15">
+                                    <div class="flex flex-col gap-[var(--extra-small-gap)]">
+                                        <p class="h5Text font-semibold my-3">December – Február</p>
+                                        <p class="pText"><strong>PO-PIA</strong>: 8:00 - 16:00</p>
+                                        <p class="pText"><strong>SO</strong>: 8:00 - 11:30</p>
+                                        <p class="pText"><strong>NE</strong>: ZATVORENÉ</p>
+                                    </div>
+                                    <div class="flex flex-col gap-[var(--extra-small-gap)]">
+                                        <p class="h5Text font-semibold my-3">Marec – November</p>
+                                        <p class="pText"><strong>PO-PIA</strong>: 8:00 - 16:00</p>
+                                        <p class="pText"><strong>SO</strong>: 8:00 - 11:30</p>
+                                        <p class="pText"><strong>NE</strong>: ZATVORENÉ</p>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="flex flex-col gap-[var(--small-gap)]">
-                                <p class="bodyText">KONTAKT</p>
+                                <p class="h5Text font-semibold">Kontakt</p>
                                 <div class="flex flex-col gap-[var(--extra-small-gap)]">
                                     <p class="pText">0918 523 756</p>
                                     <p class="pText">034/621 44 00</p>
@@ -479,7 +488,7 @@
                                     <i class="fa-brands fa-instagram text-white"></i>
                                 </div>
                             </a>
-                            <a href="#" class="w-auto h-auto transition-opacity duration-300 hover:opacity-70">
+                            <a href="https://www.instagram.com/r.m.technik/" class="w-auto h-auto transition-opacity duration-300 hover:opacity-70">
                                 <div class="flex rounded-full w-[40px] h-[40px] bg-[var(--accent-primary-color)] text-center items-center justify-center">
                                     <i class="fa-brands fa-youtube text-white"></i>
                                 </div>

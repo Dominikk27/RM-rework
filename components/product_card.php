@@ -33,8 +33,18 @@ function renderProductCard(array $product): void {
                     <?= $price ?>
                 </span>
 
-                <a href="#" class="w-10 h-10 flex justify-center items-center rounded-full border-1 border-[var(--accent-primary-color)]">
-                    <i class="fa-solid fa-cart-shopping text-[var(--accent-primary-color)]"></i>
+                <a 
+                    href="product.php?product_id=<?= (int)$product['id'] ?>"
+                    class="group w-10 h-10 flex justify-center items-center rounded-full 
+                        border border-[var(--accent-primary-color)]
+                        transition-all duration-300
+                        hover:bg-[var(--accent-primary-color)]"
+                >
+                    <i class="fa-solid fa-cart-shopping 
+                            text-[var(--accent-primary-color)]
+                            transition-colors duration-300
+                            group-hover:text-white">
+                    </i>
                 </a>
             </div>
 

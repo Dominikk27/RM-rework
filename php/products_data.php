@@ -78,7 +78,18 @@
                     $joins
                     AND p.price_b2c > 0
                     GROUP BY p.id
-                    ORDER BY p.name ASC
+                    ORDER BY 
+                    CASE 
+                        WHEN 
+                            c.slug = 'ostatne' OR 
+                            c.slug = 'oleje-a-maziva' OR 
+                            c.slug = 'ochranne-pomocky' OR
+                            c.slug = 'snehova-technika' OR
+                            c.slug = 'pluhy' OR
+                            c.slug = 'rotavatory' THEN 1
+                        ELSE 0
+                    END,
+                    p.name DESC
                     LIMIT :limit OFFSET :offset
         ";
 
@@ -107,5 +118,74 @@
             'totalPages' => (int)ceil($total / $productsPerPage),
         ];
     }
+
+
+
+    function ProductDetails(
+        PDO $pdo,
+        int $productId
+    ): ?array {
+
+        $query = "
+            SELECT
+                p.id,
+                p.product_code,
+                p.name,
+                p.price_b2c,
+                p.price,
+                p.description,
+                p.images,
+                p.parameters,
+
+                b.id AS brand_id,
+                b.name AS brand_name,
+                b.slug AS brand_slug,
+
+                c.id AS category_id,
+                c.name AS category_name,
+                c.slug AS category_slug
+
+            FROM products p
+
+            LEFT JOIN brands_new b
+                ON b.id = p.brand_id
+
+            LEFT JOIN product_categories pc
+                ON pc.product_id = p.id
+
+            LEFT JOIN categories c
+                ON c.id = pc.category_id
+
+            WHERE p.id = :product_id
+
+            LIMIT 1
+        ";
+
+        $stmt = $pdo -> prepare($query);
+        $stmt->bindValue(':product_id', $productId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$product){
+            return null;
+        }
+
+
+        $decodedImages = json_decode($product['images'] ?? '[]', true);
+        $product['images'] = is_array($decodedImages)
+            ? $decodedImages
+            : [];
+        
+
+        $decodedParameters = json_decode($product['parameters'] ?? '[]', true);
+        $product['parameters'] = is_array($decodedParameters)
+            ? $decodedParameters
+            : [];
+        
+
+        return $product;
+
+    }
+
 
 ?>

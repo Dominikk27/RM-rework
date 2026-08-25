@@ -1,15 +1,20 @@
 <?php 
     require_once __DIR__ . '/php/config/database.php';
-    require_once __DIR__ . '/php/filter/filterSetup.php';
     require_once __DIR__ . '/php/products_data.php';
-    require_once __DIR__ . '/components/product_card.php';
-    require_once __DIR__ . '/php/pagination.php';
 ?>
 
 <?php 
     $pdo = getPDO();
 
-    $filters = getFilterOptions($pdo);
+    $productId = isset($_GET['product_id'])
+        ? (int) $_GET['product_id']
+        : 0;
+    $product = ProductDetails($pdo, $productId);
+
+    if(!$product){
+        http_response_code(404);
+        exit('Produkt sa nenašiel');
+    }
 ?>
 
 <?php
@@ -43,10 +48,14 @@
         <script defer src="https://cloud.umami.is/script.js" data-website-id="716f70e9-d65b-49ec-b2aa-451c3221d137"></script>
         
         <!-- SCRIPTS -->
-        <!-- <script src="./js/mailSender.js" defer></script> -->
+        <script src="./js/product-images.js" defer></script>
+
+        <script src="./js/mailSender.js" defer></script>
+        <script src="./js/contactForm.js" defer></script>
         <!-- <script src="./js/counter.js" defer></script> -->
         <script src="./js/navigation.js" defer></script>
         <script src="./js/product-tabs.js" defer></script>
+        <script src="./js/share.js" defer></script>
         
         <!-- STYLES SCRIPTS -->
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -143,7 +152,7 @@
         <main class="w-full px-4 lg:px-8 pt-[7rem] pb-8 min-h-screen">
             <div class="max-w-[90rem] flex flex-col mx-auto bg-white rounded-xl border-1 border-[var(--catalog-border-color)]">
                 <div class="header px-4 py-5 flex flex-col gap-3">
-                    <a href="#"><i class="fa-solid fa-angle-left"></i> Späť</a>
+                    <button onclick="history.back()" class="w-auto flex justify-start items-center gap-2"><i class="fa-solid fa-angle-left"></i> Späť</button>
                     <div class="border-b border-[var(--catalog-border-color)]"></div>
                 </div>
 
@@ -152,31 +161,25 @@
                     <div class="imageSection flex flex-col-reverse lg:flex-row gap-4 min-w-0 flex-1">
                         <!-- THUMBNAILS -->
                         <div class="flex flex-row lg:flex-col gap-3 pb-5 lg:py-0 md:w-auto shrink-0">
-
-                            <button class="w-24 h-24 rounded-lg border-2 border-[var(--accent-primary-color)] bg-white p-2">
-                                <img 
-                                    src="/assets/products/test.jpg" 
-                                    alt=""
-                                    class="w-full h-full object-contain"
+                            <?php foreach ($product['images'] as $index => $image): ?>
+                                <button 
+                                    type="button"
+                                    class="productThumbnail w-24 h-24 rounded-lg border-2 <?= $index === 0 
+                                        ? 'border-[var(--accent-primary-color)]' 
+                                        : 'border-[var(--catalog-border-color)]' ?> bg-white p-2L"
+                                    data-image="<?= htmlspecialchars($image) ?>"
                                 >
-                            </button>
-
-                            <button class="w-24 h-24 rounded-lg border-2 border-[var(--catalog-border-color)] bg-white p-2">
-                                <img 
-                                    src="/assets/product.png" 
-                                    alt=""
-                                    class="w-full h-full object-contain"
-                                >
-                            </button>
-
-                            <button class="w-24 h-24 rounded-lg border-2 border-[var(--catalog-border-color)] bg-white p-2">
-                                <img 
-                                    src="/assets/product.png" 
-                                    alt=""
-                                    class="w-full h-full object-contain"
-                                >
-                            </button>
-                            <button class="w-auto h-24 md:h-auto md:w-24 md:h-12 rounded-lg border-2 border-[var(--catalog-border-color)] bg-white p-2">
+                                    <img 
+                                        src="<?= htmlspecialchars($image) ?>" 
+                                        alt="<?= htmlspecialchars($product['name']) ?>"
+                                        class="w-full h-full object-contain"
+                                    >
+                                </button>
+                            <?php endforeach; ?>
+                            <button
+                                type="button"
+                                id="nextImage"
+                                class="w-auto h-24 md:h-auto md:w-24 md:h-12 rounded-lg border-2 border-[var(--catalog-border-color)] bg-white p-2">
                                 <i class="fa-solid fa-chevron-down -rotate-90 lg:rotate-0"></i>
                             </button>
 
@@ -185,39 +188,47 @@
 
                         <!-- MAIN IMAGE -->
                         <div class="flex-1 min-w-0 aspect-square flex items-start justify-start p-2 border-1 border-[var(--catalog-border-color)] rounded-xl">
-                            <img 
-                                src="/assets/products/test.jpg" 
-                                alt=""
+                            <img
+                                id="mainProductImage"
+                                src="<?= htmlspecialchars($product['images'][0] ?? '/assets/products/Image-not-found.jpg') ?>" 
+                                alt="<?= htmlspecialchars($product['name']) ?>"
                                 class="w-full h-full object-contain"
                             >
                         </div>
                     </div>
                         <div class="productBox flex-1 flex flex-col gap-5">
                             <div class="header flex flex-col justify-start items-start md:flex-row md:justify-between md:items-center gap-2">
-                                <div class="bg-[var(--catalog-stock-color)] rounded-md py-1 px-2">
-                                    <p class="text-[var(--accent-secondary-color)]">Skladom</p>
+                                
+                                <div class="bg-[var(--catalog-stock-color)] self-start flex items-center gap-[var(--small-gap)] px-2 py-1 rounded-md">
+                                    <i class="fa-solid fa-tag text-[1.2rem] md:text-[1.4rem]"></i>
+                                    <p class="h5Text text-[var(--accent-secondary-color)] md:h4Text"><?= htmlspecialchars($product['brand_name']) ?></p>
                                 </div>
+                                
                                 <div class="flex gap-2">
-                                    <p class="font-medium">KÓD PRODUKTU: </p> <span>2737832273</span>
+                                    <p class="font-medium">KÓD PRODUKTU: </p> <span><?= htmlspecialchars($product['product_code']) ?></span>
 
                                 </div>
                             </div>
                             <div class="productContent flex flex-col gap-5">
-                                <h1 class="h4Text md:h2Text">PRODUCT fddfsf ss sfasdsdf ydfds sdfa</h1>
-                                <div class="self-start flex items-center gap-[var(--small-gap)] px-2 py-1 rounded-md bg-[var(--catalog-stock-color)]">
-                                    <i class="fa-solid fa-tag text-[1.2rem] md:text-[1.6rem]"></i>
-                                    <p class="h5Text md:h4Text">Značka</p>
-                                </div>
+                                <h1 class="h4Text md:h2Text"><?= htmlspecialchars($product['name']) ?></h1>
                                 <div class="border-b border-[var(--catalog-border-color)]"></div>
                                 <div class="priceBox flex flex-col px-3 gap-5 ">
                                     <div class="px-2 py-3">
-                                        <h3 class="h3Text text-[var(--product-price-color)]">35,90€</h3>
+                                        <h3 class="h3Text text-[var(--product-price-color)]"><?= htmlspecialchars($product['price_b2c']) ?>€</h3>
                                     </div>
                                     <div class="flex gap-3 justify-end items-stretch">
                                         <div class="productButton flex items-center justify-center bg-[var(--product-price-color)] text-white transition-opacity duration-300 hover:opacity-70">
-                                            <a href="#" class="w-full h-full text-center content-center">Kontaktujte nás</a>
+                                            <button
+                                                id="displayContactForm"
+                                                type="button" 
+                                                class="w-full h-full text-center content-center">
+                                                Kontaktujte nás
+                                            </button>
                                         </div>
-                                        <button class="border-2 border-[var(--catalog-border-color)] rounded-md aspect-square h-auto w-14 md:h-full">
+                                        <button
+                                            type="button"
+                                            id="shareButton" 
+                                            class="border-2 border-[var(--catalog-border-color)] rounded-md aspect-square h-auto w-14 md:h-full">
                                             <i class="fa-solid fa-share-nodes"></i>
                                         </button>
                                     </div>
@@ -256,7 +267,6 @@
                             </div>
                         </div>
                     </div>
-
                 <!-- PRODUCT DETAILS -->
                 <div class="flex flex-col px-4 py-5">
                     <div class="border-b border-[var(--catalog-border-color)]"></div>
@@ -271,33 +281,39 @@
                             class="tabButton h5Text">Parametre</button>
                     </div>
                     <div id="description" class="tabContent flex flex-col lg:flex-row gap-5">
-                        <p class="flex-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam, iusto culpa maiores, dolore fugit suscipit eligendi, vel consectetur quasi exercitationem animi tenetur provident praesentium sapiente quis sit deleniti fugiat molestias.</p>
+                        <div class="descriptionContent flex-2">
+                            <?php
+                                $description = $product['description'];
+
+                                if ($description !== strip_tags($description)) {
+                                    // Obsahuje HTML
+                                    $description = preg_replace('/<br\s*\/?>/i', ' ', $description);
+                                } else {
+                                    // Čistý text
+                                    $description = nl2br(htmlspecialchars($description));
+                                }
+                                ?>
+
+                                <div class="text-black/70 leading-relaxed">
+                                    <?= $description ?>
+                                </div>
+                        </div>
                         <div class="table flex-1">
                             <div class="border border-black/10 rounded-xl overflow-hidden">
 
                                 <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
                                     <span class="font-medium">Značka</span>
-                                    <span class="text-black/60">STIHL</span>
+                                    <span class="text-black/60"><?= $product['brand_name'] ?></span>
                                 </div>
 
                                 <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
                                     <span class="font-medium">Produktový kód</span>
-                                    <span class="text-black/60">MS 261</span>
+                                    <span class="text-black/60"><?= $product['product_code'] ?></span>
                                 </div>
 
                                 <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
                                     <span class="font-medium">Kategória</span>
-                                    <span class="text-black/60">Motorové píly</span>
-                                </div>
-
-                                <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
-                                    <span class="font-medium">Model</span>
-                                    <span class="text-black/60">MS 261 C-M</span>
-                                </div>
-
-                                <div class="flex justify-between gap-6 px-5 py-4">
-                                    <span class="font-medium">Dostupnosť</span>
-                                    <span class="font-medium">Na predajni</span>
+                                    <span class="text-black/60"><?= $product['category_name'] ?></span>
                                 </div>
 
                             </div>
@@ -307,30 +323,12 @@
                         <div class="table w-full">
                             <div class="border border-black/10 rounded-xl overflow-hidden">
 
-                                <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
-                                    <span class="font-medium">Značka</span>
-                                    <span class="text-black/60">STIHL</span>
-                                </div>
-
-                                <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
-                                    <span class="font-medium">Produktový kód</span>
-                                    <span class="text-black/60">MS 261</span>
-                                </div>
-
-                                <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
-                                    <span class="font-medium">Kategória</span>
-                                    <span class="text-black/60">Motorové píly</span>
-                                </div>
-
-                                <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
-                                    <span class="font-medium">Model</span>
-                                    <span class="text-black/60">MS 261 C-M</span>
-                                </div>
-
-                                <div class="flex justify-between gap-6 px-5 py-4">
-                                    <span class="font-medium">Dostupnosť</span>
-                                    <span class="font-medium">Na predajni</span>
-                                </div>
+                                <?php foreach ($product['parameters'] as $name => $value): ?>
+                                    <div class="flex justify-between gap-6 px-5 py-4 border-b border-black/10">
+                                        <span class="font-medium"><?= htmlspecialchars($name) ?></span>
+                                        <span class="text-black/60"><?= htmlspecialchars($value) ?></span>
+                                    </div>
+                                <?php endforeach; ?>
 
                             </div>
                         </div>
@@ -338,6 +336,7 @@
                 </div>
             </div>
         </main>
+        <?php require __DIR__ . '/components/contact_form.php'; ?>
         
         
         <!-- FOOTER -->
